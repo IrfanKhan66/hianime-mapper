@@ -1,0 +1,22 @@
+{
+  "name": "hianime-mapper",
+  "description": "API that maps anilist Id with hianime & provides video URL",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "node dist/server.js",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.11.1",
+    "axios": "^1.6.8",
+    "cheerio": "^1.0.0-rc.12",
+    "hono": "^4.2.9",
+    "string-similarity-js": "^2.1.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "tsx": "^4.7.1",
+    "typescript": "^5.4.5"
+  }
+}
