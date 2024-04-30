@@ -1,6 +1,6 @@
 # Hianime-mapper
 
-This API is used to fetch episodes and streaming url from https://hianime.to by using anilist Ids. It is built on [Bun.js](https://bun.sh) using the web framework [Hono.js](https://hono.dev) to serve the API.
+This API is used to fetch episodes and streaming url from https://hianime.to by using anilist Ids. It is built on [Node.js](https://nodejs.org) using the web framework [Hono.js](https://hono.dev) to serve the API.
 
 ## Run Locally
 
