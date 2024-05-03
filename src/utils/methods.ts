@@ -50,30 +50,31 @@ export const searchNScrapeEPs = async (searchTitle: Title) => {
     );
     if (!resp) return console.log("No response from hianime !");
     const $ = load(resp.data);
-    let mostSimilar = { title: "", id: "", similarity: 0 };
-    let similarTitles: {id: string, title:string, similarity: number }[] = [];
+    let similarTitles: { id: string; title: string; similarity: number }[] = [];
     $(".film_list-wrap > .flw-item .film-detail .film-name a")
       .map((i, el) => {
         const title = $(el).text();
         const id = $(el).attr("href")!.split("/").pop()?.split("?")[0] ?? "";
-        const similarity = Number((match(
-          title,
-          searchTitle.english || searchTitle.native
-        ) * 10).toFixed(2));
-        // console.log(similarTitles.sort((a,b) => a.similarity -b.similarity))
-        if(searchTitle.english.includes("Season") || searchTitle.native.includes("Season")) {
-          if (similarity > mostSimilar.similarity) {
-            mostSimilar = { title, id, similarity };
-          }
-          return;
-        }
-        similarTitles.push({id, title, similarity})
+        const similarity = Number(
+          (
+            match(
+              title.replace(/[\,\:]/g, ""),
+              searchTitle.english || searchTitle.native
+            ) * 10
+          ).toFixed(2)
+        );
+        similarTitles.push({ id, title, similarity });
       })
       .get();
-      // console.log(similarTitles.sort((a,b) => a.similarity + b.similarity)[1], mostSimilar)
 
-    if(mostSimilar.id) return getEpisodes(mostSimilar.id);
-    return getEpisodes(similarTitles.sort((a,b) => a.similarity + b.similarity)[1].id);
+    similarTitles.sort((a, b) => b.similarity - a.similarity);
+
+    if (
+      (searchTitle.english.match(/\Season(.+?)\d/) &&
+      similarTitles[0].title.match(/\Season(.+?)\d/)) || (!searchTitle.english.match(/\Season(.+?)\d/) && !similarTitles[0].title.match(/\Season(.+?)\d/))
+    )
+      return getEpisodes(similarTitles[0].id);
+    else return getEpisodes(similarTitles[1].id);
   } catch (err) {
     console.error(err);
     return null;
