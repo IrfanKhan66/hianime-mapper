@@ -51,21 +51,29 @@ export const searchNScrapeEPs = async (searchTitle: Title) => {
     if (!resp) return console.log("No response from hianime !");
     const $ = load(resp.data);
     let mostSimilar = { title: "", id: "", similarity: 0 };
+    let similarTitles: {id: string, title:string, similarity: number }[] = [];
     $(".film_list-wrap > .flw-item .film-detail .film-name a")
       .map((i, el) => {
         const title = $(el).text();
         const id = $(el).attr("href")!.split("/").pop()?.split("?")[0] ?? "";
-        const similarity = match(
+        const similarity = Number((match(
           title,
           searchTitle.english || searchTitle.native
-        );
-        if (similarity > mostSimilar.similarity) {
-          mostSimilar = { title, id, similarity };
+        ) * 10).toFixed(2));
+        // console.log(similarTitles.sort((a,b) => a.similarity -b.similarity))
+        if(searchTitle.english.includes("Season") || searchTitle.native.includes("Season")) {
+          if (similarity > mostSimilar.similarity) {
+            mostSimilar = { title, id, similarity };
+          }
+          return;
         }
+        similarTitles.push({id, title, similarity})
       })
       .get();
+      // console.log(similarTitles.sort((a,b) => a.similarity + b.similarity)[1], mostSimilar)
 
-    return getEpisodes(mostSimilar.id);
+    if(mostSimilar.id) return getEpisodes(mostSimilar.id);
+    return getEpisodes(similarTitles.sort((a,b) => a.similarity + b.similarity)[1].id);
   } catch (err) {
     console.error(err);
     return null;
