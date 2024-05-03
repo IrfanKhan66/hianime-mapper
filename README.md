@@ -1,6 +1,6 @@
 # Hianime-mapper
 
-This API is used to fetch episodes and streaming url from https://hianime.to by using anilist Ids. It is built on [Bun.js](https://bun.sh) using the web framework [Hono.js](https://hono.dev) to serve the API.
+This API is used to fetch episodes and streaming url from https://hianime.to by using anilist Ids. It is built on [Node.js](https://nodejs.org) using the web framework [Hono.js](https://hono.dev) to serve the API.
 
 ## Run Locally
 
@@ -19,13 +19,13 @@ Go to the project directory
 Install dependencies
 
 ```bash
-  bun i
+  npm i
 ```
 
 Start the server
 
 ```bash
-  bun run dev
+  npm run dev
 ```
 
 ## Documentation
@@ -215,9 +215,9 @@ _response_
 _request url_
 
 ```url
-http://localhost:5000/anime/sources?serverId={server_id}&episodeId={episode_id}
+https://hianime-mapper.vercel.app/anime/sources?serverId={server_id}&episodeId={episode_id}
 
-example : http://localhost:5000/anime/sources?serverId=662001&episodeId=12352
+example : https://hianime-mapper.vercel.app/anime/sources?serverId=662001&episodeId=12352
 
 ```
 
@@ -253,5 +253,3 @@ _response_
 ## Acknowledgements
 
 - [Consumet](https://github.com/consumet/consumet.ts)
-
-- [Bun.js](https://bun.sh)
