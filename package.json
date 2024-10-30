@@ -8,15 +8,15 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@hono/node-server": "^1.11.1",
-    "axios": "^1.6.8",
-    "cheerio": "^1.0.0-rc.12",
-    "hono": "^4.2.9",
+    "@hono/node-server": "^1.13.3",
+    "axios": "^1.7.7",
+    "cheerio": "^1.0.0",
+    "hono": "^4.6.8",
     "string-similarity-js": "^2.1.4"
   },
   "devDependencies": {
-    "@types/node": "^20.11.17",
-    "tsx": "^4.7.1",
-    "typescript": "^5.4.5"
+    "@types/node": "^22.8.4",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
   }
 }
